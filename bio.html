@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roma | Обо мне</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: rgba(10, 20, 10, 0.7);
+            --primary-green: #00ff9d;
+            --light-green: #00e68a;
+            --dark-green: #00663c;
+            --accent: #00cc7a;
+            --text-color: #e0e0e0;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark-bg), #111, #050505);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 100, 60, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 150, 90, 0.1) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .header {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-green), #00cc7a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px rgba(0, 255, 157, 0.3); }
+            100% { text-shadow: 0 0 15px var(--primary-green), 0 0 25px rgba(0, 183, 255, 0.2); }
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            background: rgba(0, 30, 15, 0.5);
+            color: var(--primary-green);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.1);
+        }
+        
+        .nav-btn:hover {
+            background: rgba(0, 60, 30, 0.7);
+            box-shadow: 0 0 15px var(--primary-green);
+        }
+        
+        .test-btn {
+            color: var(--primary-green);
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .profile-section, .posts-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            padding: 20px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-section:hover, .posts-section:hover {
+            transform: translateY(-3px);
+        }
+        
+        .profile-section::before, .posts-section::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #000, var(--dark-green), var(--primary-green));
+            z-index: -1;
+            border-radius: 17px;
+            animation: borderAnimation 8s linear infinite;
+        }
+        
+        @keyframes borderAnimation {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-green);
+        }
+        
+        .section-title i {
+            color: var(--primary-green);
+        }
+        
+        .ascii-art {
+            font-family: 'Courier New', monospace;
+            font-size: 8px;
+            line-height: 1;
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0, 20, 10, 0.3);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            color: var(--primary-green);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+        }
+        
+        .ascii-art::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(0, 80, 40, 0.1), 
+                rgba(0, 150, 75, 0.1), 
+                rgba(0, 255, 157, 0.1));
+            z-index: -1;
+            animation: gradientShift 10s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .bio-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .bio-card {
+            background: rgba(0, 20, 10, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .bio-card:nth-child(2) { animation-delay: 0.5s; }
+        .bio-card:nth-child(3) { animation-delay: 1s; }
+        .bio-card:nth-child(4) { animation-delay: 1.5s; }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .bio-card:hover {
+            transform: translateY(-3px);
+            background: rgba(0, 40, 20, 0.4);
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+        }
+        
+        .bio-card i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--primary-green);
+        }
+        
+        .bio-card h3 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #bbb;
+        }
+        
+        .bio-card p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            background: rgba(0, 30, 15, 0.5);
+            color: var(--primary-green);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .action-btn:hover {
+            background: rgba(0, 60, 30, 0.7);
+            box-shadow: 0 0 15px var(--primary-green);
+        }
+        
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .post-card {
+            background: rgba(0, 20, 10, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-3px);
+            background: rgba(0, 40, 20, 0.4);
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+        }
+        
+        .post-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-green);
+        }
+        
+        .post-card h3 {
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        
+        .note {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(0, 20, 10, 0.3);
+            border-radius: 8px;
+            color: var(--primary-green);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            font-size: 0.9rem;
+        }
+        
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 15px;
+            color: rgba(200, 255, 230, 0.6);
+            font-size: 0.8rem;
+            width: 100%;
+            border-top: 1px solid rgba(0, 255, 157, 0.1);
+            background: var(--darker-bg);
+        }
+        
+        /* Модальные окна */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #0a0a0a, #0a1a0f);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 450px;
+            padding: 20px;
+            position: relative;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            animation: slideIn 0.4s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            cursor: pointer;
+            transition: color 0.3s;
+            background: rgba(0, 20, 10, 0.3);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-modal:hover {
+            color: #fff;
+            background: rgba(0, 40, 20, 0.5);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+        
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+        
+        .modal-body {
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .modal-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            background: rgba(0, 30, 15, 0.5);
+            color: var(--primary-green);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .modal-btn:hover {
+            background: rgba(0, 60, 30, 0.7);
+            box-shadow: 0 0 10px var(--primary-green);
+        }
+        
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: row;
+                padding: 10px 15px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-buttons {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 15px;
+                flex-direction: column;
+                background: rgba(10, 20, 10, 0.95);
+                border-radius: 10px;
+                padding: 10px;
+                border: 1px solid rgba(0, 255, 157, 0.2);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+                z-index: 100;
+                width: 200px;
+            }
+            
+            .nav-buttons.active {
+                display: flex;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 5px;
+            }
+            
+            .bio-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .posts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+            
+            .action-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .action-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 0 10px;
+            }
+            
+            .profile-section, .posts-section {
+                padding: 15px;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .posts-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .action-btn {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">Roma</div>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-buttons" id="nav-buttons">
+            <button class="nav-btn" id="home-btn">
+                <i class="fas fa-home"></i> Главная
+            </button>
+            <button class="nav-btn" id="about-btn">
+                <i class="fas fa-user"></i> Обо мне
+            </button>
+            <button class="nav-btn" id="posts-btn">
+                <i class="fas fa-image"></i> Посты
+            </button>
+            <button class="nav-btn test-btn" id="test-btn">
+                <i class="fas fa-question"></i> Тест
+            </button>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="profile-section">
+            <h2 class="section-title"><i class="fas fa-user"></i> Обо мне</h2>
+            
+            <div class="ascii-art">
+                ⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀
+                ⠀⠀⠀⠉⠉⠉⠙⠻⣿⣿⠿⠿⠛⠛⠛⠻⣿⣿⣇⠀
+                ⠀⠀⢤⣀⣀⣀⠀⠀⢸⣷⡄⠀⣁⣀⣤⣴⣿⣿⣿⣆
+                ⠀⠀⠀⠀⠹⠏⠀⠀⠀⣿⣧⠀⠹⣿⣿⣿⣿⣿⡿⣿
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠿⠇⢀⣼⣿⣿⠛⢯⡿⡟
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠦⠴⢿⢿⣿⡿⠷⠀⣿⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠙⣷⣶⣶⣤⣤⣤⣤⣤⣶⣦⠃⠀
+                ⠀⠀⠀⠀⠀⠀⠀⢐⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⢿⣿⣿⣿⣿⠟⠁
+            </div>
+            
+            <div class="bio-info">
+                <div class="bio-card age-card">
+                    <i class="fas fa-birthday-cake"></i>
+                    <h3>Возраст</h3>
+                    <p>14</p>
+                </div>
+                
+                <div class="bio-card name-card">
+                    <i class="fas fa-user"></i>
+                    <h3>Имя</h3>
+                    <p>Roma</p>
+                </div>
+                
+                <div class="bio-card country-card">
+                    <i class="fas fa-globe-europe"></i>
+                    <h3>Страна</h3>
+                    <p>Россия</p>
+                </div>
+                
+                <div class="bio-card question-card">
+                    <i class="fas fa-question"></i>
+                    <h3>??????</h3>
+                    <p>Загадка</p>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn" id="username-btn">
+                    <i class="fab fa-telegram"></i> Мой Username
+                </button>
+                <button class="action-btn" id="bio-btn">
+                    <i class="fas fa-address-card"></i> Моё Bio?
+                </button>
+            </div>
+        </div>
+        
+        <div class="posts-section">
+            <h2 class="section-title"><i class="fas fa-image"></i> Мои посты</h2>
+            
+            <div class="posts-grid">
+                <div class="post-card" data-post="nature">
+                    <i class="fas fa-mountain"></i>
+                    <h3>Природа</h3>
+                </div>
+                
+                <div class="post-card" data-post="games">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Игры</h3>
+                </div>
+                
+                <div class="post-card" data-post="music">
+                    <i class="fas fa-music"></i>
+                    <h3>Музыка</h3>
+                </div>
+                
+                <div class="post-card" data-post="photos">
+                    <i class="fas fa-camera"></i>
+                    <h3>Фотографии</h3>
+                </div>
+                
+                <div class="post-card" data-post="coding">
+                    <i class="fas fa-code"></i>
+                    <h3>Программирование</h3>
+                </div>
+                
+                <div class="post-card" data-post="tech">
+                    <i class="fas fa-robot"></i>
+                    <h3>Технологии</h3>
+                </div>
+            </div>
+            
+            <div class="note">
+                <i class="fas fa-exclamation-circle"></i> Кнопки работают на любых устройствах
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Создано с ❤️ | 2025 | Roma @psixikipo6
+    </div>
+    
+    <!-- Модальные окна -->
+    <div class="modal" id="username-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('username-modal')">&times;</span>
+            <div class="modal-header">
+                <h2>Мой Username</h2>
+            </div>
+            <div class="modal-body">
+                <p>Мой Telegram username:</p>
+                <h3 style="font-size: 1.8rem; margin: 15px 0; color: var(--primary-green);">@psixikipo6</h3>
+                <p>Добавляй меня в друзья! 😊</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" onclick="closeModal('username-modal')">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="bio-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('bio-modal')">&times;</span>
+            <div class="modal-header">
+                <h2>Моё Bio</h2>
+            </div>
+            <div class="modal-body">
+                <p>Всё обо мне уже есть на этой странице чуть выше!</p>
+                <div style="margin: 20px 0; font-size: 2.5rem; color: var(--primary-green);">👆</div>
+                <p>Можешь посмотреть мой возраст, имя и страну</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" onclick="closeModal('bio-modal')">Понял!</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="test-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('test-modal')">&times;</span>
+            <div class="modal-header">
+                <h2>Тест</h2>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 2.5rem; margin: 15px 0; color: var(--primary-green);">?????????????</p>
+                <p>Это просто тестовая кнопка без особого смысла 😄</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" onclick="closeModal('test-modal')">Окей</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="post-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('post-modal')">&times;</span>
+            <div class="modal-header">
+                <h2 id="post-title">Заголовок поста</h2>
+            </div>
+            <div class="modal-body">
+                <div id="post-content">
+                    <p>Содержимое поста будет здесь</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" onclick="closeModal('post-modal')">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Функции для работы с модальными окнами
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Обработчики событий для кнопок
+        document.getElementById('username-btn').addEventListener('click', function() {
+            openModal('username-modal');
+        });
+        
+        document.getElementById('bio-btn').addEventListener('click', function() {
+            openModal('bio-modal');
+        });
+        
+        document.getElementById('test-btn').addEventListener('click', function() {
+            openModal('test-modal');
+        });
+        
+        // Обработчики для навигационных кнопок
+        document.getElementById('home-btn').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        document.getElementById('about-btn').addEventListener('click', function() {
+            document.querySelector('.profile-section').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('posts-btn').addEventListener('click', function() {
+            document.querySelector('.posts-section').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Обработчики для карточек постов
+        document.querySelectorAll('.post-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const postType = this.getAttribute('data-post');
+                const title = this.querySelector('h3').textContent;
+                
+                // Устанавливаем заголовок
+                document.getElementById('post-title').textContent = title;
+                
+                // Устанавливаем содержимое в зависимости от типа поста
+                const contentDiv = document.getElementById('post-content');
+                contentDiv.innerHTML = '';
+                
+                // Создаем содержимое для каждого типа поста
+                const content = document.createElement('div');
+                content.className = 'fade-in';
+                
+                switch(postType) {
+                    case 'nature':
+                        content.innerHTML = `
+                            <i class="fas fa-mountain" style="font-size: 2rem; color: var(--primary-green); margin: 10px 0;"></i>
+                            <p>Мои посты о природе и красивых местах</p>
+                            <p>Скоро здесь появятся фотографии и рассказы о природных красотах России и не только!</p>
+                        `;
+                        break;
+                    case 'games':
+                        content.innerHTML = `
+                            <i class="fas fa-gamepad" style="font-size: 2rem; color: var(--primary-green); margin: 10px 0;"></i>
+                            <p>Обзоры игр и игровые новости</p>
+                            <p>Скоро здесь будут мои обзоры на любимые игры и новости игровой индустрии!</p>
+                        `;
+                        break;
+                    case 'music':
+                        content.innerHTML = `
+                            <i class="fas fa-music" style="font-size: 2rem; color: var(--primary-green); margin: 10px 0;"></i>
+                            <p>Моя любимая музыка и плейлисты</p>
+                            <p>Скоро здесь появятся мои музыкальные рекомендации и плейлисты!</p>
+                        `;
+                        break;
+                    case 'photos':
+                        content.innerHTML = `
+                            <i class="fas fa-camera" style="font-size: 2rem; color: var(--primary-green); margin: 10px 0;"></i>
+                            <p>Мои фотографии и фотопроекты</p>
+                            <p>Скоро здесь появятся мои лучшие фотографии и рассказы о том, как они были сделаны!</p>
+                        `;
+                        break;
+                    case 'coding':
+                        content.innerHTML = `
+                            <i class="fas fa-code" style="font-size: 2rem; color: var(--primary-green); margin: 10px 0;"></i>
+                            <p>Программирование и веб-разработка</p>
+                            <p>Скоро здесь будут мои проекты, туториалы и мысли о программировании!</p>
+                        `;
+                        break;
+                    case 'tech':
+                        content.innerHTML = `
+                            <i class="fas fa-robot" style="font-size: 2rem; color: var(--primary-green); margin: 10px 0;"></i>
+                            <p>Технологии будущего</p>
+                            <p>Скоро здесь появятся статьи о новых технологиях, гаджетах и IT-новинках!</p>
+                        `;
+                        break;
+                }
+                
+                contentDiv.appendChild(content);
+                openModal('post-modal');
+            });
+        });
+        
+        // Гамбургер-меню для мобильных
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.getElementById('nav-buttons').classList.toggle('active');
+        });
+        
+        // Закрытие модальных окон при клике вне области
+        window.addEventListener('click', function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    closeModal(modal.id);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
